@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ux*^=@qpng=b66*ogw2+&xp#u3fqqqs#w0mbfv7#2a&$)5mlhp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['dragonbreath.io.vn', 'www.dragonbreath.io.vn']
+ALLOWED_HOSTS = ['dragonbreath.io.vn', 'www.dragonbreath.io.vn','127.0.0.1', 'localhost']
 
 
 # Application definition
