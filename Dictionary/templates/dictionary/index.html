@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'dictionarystyle.css' %}">
+{% endblock %}
+
+{% block content %}
+<!--================ Start Search Bar Area =================-->
+	<section class="search_bar_area d-flex align-items-center justify-content-center" style="min-height: 100vh; background:url({% static 'background.jpg' %});background-size: cover; background-position: center;">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-8">
+					<div class="search-wrapper">
+                    <input type="text" class="form-control search-input" id="searchInput" placeholder="Tìm kiếm...">
+                    <i class="bi bi-search search-icon"></i>
+                    
+                    <!-- Search Panel -->
+                    <div class="search-panel" id="searchPanel">
+                        <button class="close-btn" id="closeBtn">
+                            <i class="bi bi-x"></i>
+                        </button>
+                        
+                        <div class="panel-content">
+                            <!-- Search Suggestions -->
+                            <div class="search-suggestions">
+                                <h6 class="text-muted mb-3">Gợi ý tìm kiếm</h6>
+                                <button class="suggestion-item">
+                                    <i class="bi bi-search suggestion-icon"></i>
+                                    <span>Thiết kế website responsive</span>
+                                </button>
+                                <button class="suggestion-item">
+                                    <i class="bi bi-code-slash suggestion-icon"></i>
+                                    <span>Phát triển ứng dụng web</span>
+                                </button>
+                                <button class="suggestion-item">
+                                    <i class="bi bi-palette suggestion-icon"></i>
+                                    <span>UI/UX Design</span>
+                                </button>
+                                <button class="suggestion-item">
+                                    <i class="bi bi-bootstrap suggestion-icon"></i>
+                                    <span>Bootstrap components</span>
+                                </button>
+                                <button class="suggestion-item">
+                                    <i class="bi bi-phone suggestion-icon"></i>
+                                    <span>Mobile app development</span>
+                                </button>
+                            </div>
+                            
+                            <!-- Recent Searches -->
+                            <div class="recent-searches">
+                                <h6 class="text-muted mb-3">Tìm kiếm gần đây</h6>
+                                <a href="#" class="recent-item">HTML5</a>
+                                <a href="#" class="recent-item">CSS Animation</a>
+                                <a href="#" class="recent-item">JavaScript ES6</a>
+                                <a href="#" class="recent-item">React Components</a>
+                                <a href="#" class="recent-item">Vue.js</a>
+                                <a href="#" class="recent-item">Node.js</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			</div>
+        </div>
+    </section>
+    <!--================ End Search Bar Area =================-->
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'dictionary/js/script.js' %}"></script>
+{% endblock extra_js %}

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'dictionary/css/search.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div style="height: 100px;"></div> 
+    <section class="search-section">
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Tìm từ vựng..." value="{{ query }}" id="searchInput">
+                <button class="search-btn" onclick="performSearch()">🔍 Tìm kiếm</button>
+            </div>
+            <div class="search-info">
+                Hiển thị {{ length }} từ vựng
+            </div>
+        </div>
+    </section>
+
+    <main class="results-container">
+        <div class="results-header">
+            <div class="results-count">
+                Tổng cộng <strong>{{ length }}</strong> từ vựng trong bộ sưu tập
+            </div>
+        </div>
+
+        <div class="results-list" id="resultsList">
+            {% for item in vocabulary %}
+            <div class="vocab-item">
+                <div class="vocab-word">
+                    {{ item.word }} <span class="vocab-phonetic">{{ item.phonetic }}</span>
+                    <span class="vocab-type">{{ item.type }}</span>
+                </div>
+                <div class="vocab-meaning">
+                    {{ item.meaning }}
+                </div>
+                <div class="vocab-meta">
+                    <div class="vocab-level">
+                        <span class="level-badge level-{{ item.level }}">{{ item.level|capfirst }}</span>
+                    </div>
+                    <div class="vocab-actions">
+                        <button class="action-btn pronunciation-btn" onclick="playPronunciation('{{ item.word }}')" title="Phát âm">🔊</button>
+                        <button class="action-btn" onclick="toggleFavorite(this)" title="Yêu thích">❤️</button>
+                        <button class="action-btn" onclick="markAsLearned(this)" title="Đã học">✓</button>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+        </div>
+
+        <div class="pagination">
+            <button class="page-btn" onclick="changePage(-1)" disabled>← Trước</button>
+            <button class="page-btn active" onclick="goToPage(1)">1</button>
+            <button class="page-btn" onclick="goToPage(2)">2</button>
+            <button class="page-btn" onclick="goToPage(3)">3</button>
+            <button class="page-btn" onclick="goToPage(4)">4</button>
+            <button class="page-btn" onclick="goToPage(5)">5</button>
+            <span>...</span>
+            <button class="page-btn" onclick="goToPage(20)">20</button>
+            <button class="page-btn" onclick="changePage(1)">Tiếp →</button>
+        </div>
+    </main>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        let currentPage = 1;
+        let currentFilter = 'all';
+        
+        // Mô phỏng dữ liệu từ vựng
+        const vocabularyData = {
+            all: [
+                {% for word in vocabulary %}
+                    {
+                        word: "{{ word.word }}",
+                        phonetic: "{{ word.phonetic }}",
+                        type: "{{ word.type }}",
+                        meaning: "{{ word.meaning }}",
+                        example: "{{ word.example }}",
+                        translation: "{{ word.translation }}",
+                        level: "{{ word.level }}"
+                    },
+                {% endfor %}
+            ],
+            beginner: [],
+            intermediate: [],
+            advanced: [],
+            favorite: []
+        };
+    </script>
+    <script src="{% static 'dictionary/js/search.js' %}"></script>
+    <script>
+        displayVocabulary(vocabularyData.all);
+        document.getElementById('searchInput').addEventListener('input', function() {
+            performSearch();
+        });
+    </script>
+{% endblock %}
